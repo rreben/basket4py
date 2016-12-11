@@ -1,0 +1,65 @@
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-7.2
+  - name: debian-7.11
+  - name: debian-8.5
+  - name: ubuntu-12.04
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: ubuntu-16.04-chef-12.1
+    driver_config:
+      box: bento/ubuntu-16.04
+    provisioner:
+      require_chef_omnibus: 12.1.0
+
+suites:
+  - name: default
+    run_list:
+      - recipe[apt]
+
+  - name: cacher-client
+    run_list:
+      - recipe[apt::cacher-client]
+
+  - name: cacher-ng
+    run_list:
+      - recipe[apt::cacher-ng]
+    excludes: centos-7.2
+
+  - name: cacher-ng-client
+    run_list:
+      - recipe[apt_test::cacher-ng-client]
+    attributes:
+      apt:
+        cacher_dir: '/tmp/apt-cacher'
+        cacher_port: '9876'
+        cacher_interface: 'eth0'
+        compiletime: true
+    excludes: centos-7.2
+
+  - name: compile-time
+    run_list:
+      - recipe[apt::default]
+    attributes:
+      apt:
+        compile_time_update: true
+    excludes: centos-7.2
+
+  - name: lwrps
+    run_list:
+      - recipe[apt_test::lwrps]
+    excludes: centos-7.2
+
+  - name: unattended-upgrades
+    run_list:
+      - recipe[apt::unattended-upgrades]
+    attributes:
+      apt:
+        unattended_upgrades:
+          enable: true
+    excludes: centos-7.2

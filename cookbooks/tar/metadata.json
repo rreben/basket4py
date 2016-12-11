@@ -1,0 +1,41 @@
+{
+  "name": "tar",
+  "description": "Installs tar and two LWRPs to manage remote tar packages",
+  "long_description": "*This cookbook is no longer actively maintained and is up for adoption. If you\nwould like to take over development, go to https://supermarket.chef.io/cookbooks/tar,\nclick the \"Adopt me!\" button, and you could be the new maintainer of this cookbook!*\n\nDESCRIPTION\n===========\n\nInstalls tar and two resources for managing remote tar files.\n`tar_package` handles remote source package compilation.\n`tar_extract` handles retrieving remote tar files and extracting\nthem locally.\n\nLICENSE AND AUTHOR\n==================\n\nAuthor:: Nathan L Smith (<nathan@cramerdev.com>)\nAuthor:: George Miranda (<gmiranda@opscode.com>)\nAuthor:: Mark Van de Vyver (<mark@@taqtiqa.com>)\n\nCopyright 2011, Cramer Development, Inc.\nCopyright 2011, Opscode, Inc.\nCopyright 2013, TAQTIQA LLC.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n\nResources/Providers\n===================\n\nA `tar_package` LWRP provides an easy way to download remote files and compile and install them.  This only works for the most basic Autoconf programs that can do `./configure && make && make install`.\n\nA `tar_extract` LWRP provides an easy way to download remote tar files and extract them to a local directory.\n\n# Actions\n\n`tar_package`\n- :install: Installs the package\n\n`tar_extract`\n- :extract: Extracts the tar file from a url\n- :extract_local: Extracts the tar file from a local file path\n\n# Attribute Parameters\n\n`tar_package`\n- source: name attribute. The source remote URL.\n- prefix: Directory to be used as the `--prefix` configure flag.\n- source\\_directory: Directory to which source files are download.\n- creates: A file this command creates - if the file exists, the command will not be run.\n- configure\\_flags: Array of additional flags to be passed to `./configure`.\n- archive\\_name: Specify a different name for the downloaded archive. Use it if the directory name inside the tar file is different than the name defined in the URL.\nAdditionally, `tar_package` supports most `remote_file` [attributes](https://docs.chef.io/chef/resources.html#remote-file).\n\n`tar_extract`\n- source: name attribute. The source remote URL.\n- target\\_dir: Directory to extract into, e.g. tar xzf -C (target_dir)\n- download\\_dir: Directory to which tarball is downloaded (defaults to chef cache which requires root `group` and `user`).\n- creates: A file this command creates - if the file exists, the command will not be run.\n- compress_char: Flag for compression type, such as `z` for `gzip`.  `man tar` for options.\n- tar\\_flags: Array of additional flags to be passed to tar xzf command.\n- group: Group name or group ID to extract the archive under. If set to non-root group, point to a `download_dir` the group has permission to access.\n- user: User name or user ID to extract the archive under. If set to non-root user, point to a `download_dir` the user has permission to access.\nAdditionally, `tar_extract` supports most `remote_file` [attributes](https://docs.chef.io/chef/resources.html#remote-file).\n\n# Example\n\n    tar_package 'http://pgfoundry.org/frs/download.php/1446/pgpool-3.4.1.tar.gz' do\n      prefix '/usr/local'\n      creates '/usr/local/bin/pgpool'\n    end\n\nThis will download, compile, and install the package from the given URL and install it into /usr/local.\n\n    tar_extract 'http://dev.mycoderepo.com/artifacts/mycode-1.2.3.tar.gz' do\n      target_dir '/opt/myapp/mycode'\n      creates '/opt/myapp/mycode/lib'\n      tar_flags [ '-P', '--strip-components 1' ]\n    end\n\nThis will download the tarball to cache, extract the contents to /opt/myapp/mycode, use the file '/opt/myapp/mycode/lib' to determine idempotency, and pass both '-P' and '--strip-components 1' flags to the tar xzf command.\n\n    tar_extract '/tmp/mycode-1.2.3.tar.gz' do\n      action :extract_local\n      target_dir '/opt/myapp/mycode'\n      creates '/opt/myapp/mycode/lib'\n    end\n\nThis will extract the contents of /tmp/mycode-1.2.3.tar.gz to /opt/myapp/mycode and use the file '/opt/myapp/mycode/lib' to determine idempotency.\n\n# ChefSpec Matchers\n\nChefSpec matchers are defined for tar_package and tar_extract.\n",
+  "maintainer": "Cramer Development, Inc.",
+  "maintainer_email": "sysadmin@cramerdev.com",
+  "license": "Apache 2.0",
+  "platforms": {
+
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.7.0",
+  "source_url": "",
+  "issues_url": ""
+}

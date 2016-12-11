@@ -1,0 +1,25 @@
+.vagrant
+Berksfile.lock
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+/cookbooks
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
+!.bundle/config
+
+# test kitchen
+.kitchen/
+.kitchen.local.yml
+
+# local anaconda installers should not be checked in
+Anaconda*-*-Linux-*.sh
+
+# OSX
+.DS_Store

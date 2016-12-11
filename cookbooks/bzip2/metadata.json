@@ -1,0 +1,41 @@
+{
+  "name": "bzip2",
+  "description": "Installs bzip2 package.",
+  "long_description": "Installs bzip2 package.",
+  "maintainer": "John Bellone",
+  "maintainer_email": "jbellone@bloomberg.net",
+  "license": "Apache 2.0",
+  "platforms": {
+    "redhat": "~> 5.8",
+    "centos": "~> 5.8",
+    "ubuntu": "= 12.04"
+  },
+  "dependencies": {
+
+  },
+  "recommendations": {
+
+  },
+  "suggestions": {
+
+  },
+  "conflicting": {
+
+  },
+  "providing": {
+
+  },
+  "replacing": {
+
+  },
+  "attributes": {
+
+  },
+  "groupings": {
+
+  },
+  "recipes": {
+
+  },
+  "version": "0.1.0"
+}
