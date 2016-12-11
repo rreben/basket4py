@@ -74,7 +74,7 @@ The effect might be that the directories with the jupyter notebooks are not moun
 
 If this happens, you have to update your virtualbox installation to the newest version. Use `vagrant destroy` to restart from scratch, use `vagrant up` to install again (do this in a strong wifi network). This should fix everything.
 
-#### Tips for analysing errors
+#### Tips for analyzing errors
 In most cases, this should solve your problems. But if the message "The guest additions on this VM do not match the installed version of VirtualBox! ..." persists, you might try to issue. `vagrant plugin install vagrant-vbguest` and restart vagrant. This might indicate further problems with the guest additions.
 
 Use `vagrant ssh` to login to your guest mashine. Here you might issue `ipython notebook --help` to learn more about starting the jupyter service.
@@ -85,5 +85,5 @@ Your stuck with the installation. Please create an issue on Github, I will try t
 ## Get in touch
 * Use Github to open tickets for support questions.
 * Follow me on Twitter `@r_rbn`
-* Tweet using `#lhtc` (learn how to code). Or send me a DM.
+* Tweet using `#basket4py`. Or send me a DM.
 * Forking, starring, following the github repo would be great.
