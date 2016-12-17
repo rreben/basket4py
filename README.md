@@ -47,8 +47,6 @@ After the installation. Use [http://localhost:8888](http://localhost:8888) in yo
 ## Acknowledgement
 This work is inspired by Matthew A. Russel's work on [Mining the social Web](https://miningthesocialweb.com), where I found out about iPython (now jupyter) and how to use Vagrant and chef to prepare an easy to deploy development environment.
 
-I followed the ZX81 manual. And adopted it for learning python. So I owe a lot to Steven Vickers and his famous book: "Sinclair ZX81 BASIC Programming by Steven Vickers Second Edition 1981."
-
 I used the following chef recipes to cook up the development environment:
 * [anaconda](https://github.com/thmttch/chef-continuum-anaconda)
 * [apt](https://github.com/chef-cookbooks/apt)
@@ -61,7 +59,8 @@ I used the following chef recipes to cook up the development environment:
 
 ## Status
 * The vagrantfile is done, so setting up the development environment is working. Some tweeks to the chef recipes have been necessary to point the jupyter working directory to the right directory that is linked from the guest machine directly to the host machine.
-* The first lesson on statements and expressions is finished.
+* basket4py has been tested with vagrant 1.9.x
+* The anaconda stack is working
 
 
 ## Handling errors
@@ -81,6 +80,63 @@ Use `vagrant ssh` to login to your guest mashine. Here you might issue `ipython 
 
 ### Other bugs and errors
 Your stuck with the installation. Please create an issue on Github, I will try to help you then.
+
+### Twitter sent status 401 ... Timestamp out of bounds
+It might happen that the guest machine is not working with the correct system time. This will lead issues with various APIs especially the twitter API. Just do a `vagrant halt` followed with `vagrant up` to sync the time of the guest machine again.
+
+## Some tips and tricks to deal with disk space
+
+### Move away from the primary disk
+On my Windows 7 mashine the VMBox takes up about 1.5 to 5 GB of diskspace, vagrant uses around 750 MB. As I have a SSD as my first disk, I need to move this to my secondary disk.
+To achieve this:
+1. Create a new directory on your target disk. Set the VAGRANT_HOME environment variable to point to this directory. On Windows go to explorer (right click) -> "Erweiterte Systemeinstellungen" -> "Umgebungsvariablen".
+2. Create a different new directory on your target disk for your VirtualBox. Open the VirtualBox app. In the settings, specify this directory to store the VirtualBox-files.
+
+### Move VirtualBox to a flash-drive
+On my MacBook I need to have ghe VirtualBox on a flash-drive. This leads however to some obstacles: vagrant will not be able to provision the virtual mashine, because the certificate to log in to the virtual box is fully accessible. For security reasons ssl
+will not accept a fully accessible certificate, so vagrant can not log in to its created guest machine.
+So after using `vagrant up` to download and install the virtual machine (takes 20 min) there might be an error with the permissions on the private-key file for the ssh to the virtual machine.
+![SSH error when trying to use a keyfile with unrestricted access privileges](images/ChmodError.png)
+In this case do the following:
+  * let us assume that /project is the folder where the vagrant file lives.
+  * So then goto /project/.vagrant/mashines/default/virtualtbox and copy the file to a local folder /home folder (let us assume /Users/username/certificates/), where you can change the file permissions via `chmod 0600 key_file`
+  * now set the vagrant system to find the file in this folder:
+  * open the vagrant file and add the last line below the two lines (so this block look as follows:)
+  ```sh
+  override.vm.box = "precise64"
+  override.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.ssh.private_key_path = "/Users/username/certificates/private_key"
+  ```
+  * Note: with version 1.8.5 of vagrant the behaviour changed a little:
+    * The key file will now be named `insecure_private_key`
+    * Vagrant will try to substitute this key file with a different secure key file, however this will lead to unrecoverable errors. So you have to add the following lines to the vagrant (or uncomment and adapt the lines in the vagrant file).
+    ```sh
+    override.vm.box = "ubuntu/trusty64"
+    config.ssh.private_key_path = "/Users/username/certificates/insecure_private_key"
+    config.ssh.insert_key = false
+    ```
+  * Note: After using `vagrant destroy`  you first have to deactivate config.ssh.private_key_path again in the Vagrantfile, because the next `vagrant up` will create a new guest virtual machine, with a new and different certificate.
+
+
+### Install of vagrant and virtual box for a secondary disk
+  * install [virtual box](https://www.virtualbox.org/wiki/Downloads). The target directory is fixed Unfortunately (Mac).
+  * install [vargrant](https://www.vagrantup.com/downloads.html). The can be changed to point to a flash drive (Mac).
+  * install git client for Windows. Do check (it's guarded by a warining) the git and bash command linen tools. Otherwise `vagrant ssh` will not work at all (Windows). Alternatively you could use putty to login to your guest machine.
+  ![How to download the git unix tools](images/HowToDownloadGitUnixTools.png)
+  * clone the github repo from [GitHub](https://github.com/ptwobrussell/Mining-the-Social-Web-2nd-Edition/)
+
+## Use some basic vagrant commands
+  * Use `vagrant up` to download and install the guest machine (also use this to bring the virtual machine up after halt or suspend)
+  * Use `vagrant status` to check whether the vagrant machine is up and running.
+  * you might have to update via `vagrant box update`
+  * start and stop vagrant via `vagrant up` and `vagrant halt` (do not use `vagrant suspend` in most cases)
+  * use `vagrant provision` to start the provisioning of the machine. In our case this will start the chef machinery to install the python environment. You can restart this command.
+  * Use `vagrant destory` if you have to restart completly from scratch or have to reuse the disk space.
+
+## Maintenance
+  * go to the folder that contains the vagrantfile and isue `vagrant plugin install vagrant-vbguest`
+  * see this [blog](http://kvz.io/blog/2013/01/16/vagrant-tip-keep-virtualbox-guest-additions-in-sync/) for details.
+
 
 ## Get in touch
 * Use Github to open tickets for support questions.
