@@ -28,8 +28,8 @@ Follow these simple steps to install everything you need to start programming:
 * type in `vagrant up`. This command will prepare a "virtual computer" on your pc or mac. Everything will be installed within this "virtual computer" so there won't be any interferences with other programs on your mashine.
 * type in `vagrant provision` this command may take even longer (leave it for the night). It will install a modern python development environment.
 
-### Start the tutorial
-After the installation. Use [http://localhost:8888](http://localhost:8888) in your web browser, to start the environment. Click on the first lesson to start the tutorial.
+### Check the installation
+After the installation. Use [http://localhost:8888](http://localhost:8888) in your web browser, to start the environment. Click on the notebook and run the code blocks in the order in which they occur in the notebook.
 
 ## Stoping and resuming
 * Use `vagrant status` to check whether the vagrant machine is up and running.
