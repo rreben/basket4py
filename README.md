@@ -12,6 +12,9 @@ This project gives you an easy start with python:
 + The provisioning is done with chef. So the chef recipes can easily be customized
 + Everything is based on virtualbox and vagrant. So the whole setup is portable from one computer to the next and works independently from your OS (i.e. it works as well with OSX as with windows)
 
+![basket4py is the pythons basket](images/basket4py_small.png)
+
+
 ## Integrated platform to edit and run your programs
 
 ![Get an idea of a jupyter notebook](images/01_The_Basics_annotated.png)
