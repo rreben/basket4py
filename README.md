@@ -17,7 +17,7 @@ This project gives you an easy start with python:
 
 ## Integrated platform to edit and run your programs
 
-![How it works](images/basket4py_trailer.gif)
+![How it works](images/basket4py_trailer_big.gif)
 
 ![Get an idea of a jupyter notebook](images/01_The_Basics_annotated.png)
 
