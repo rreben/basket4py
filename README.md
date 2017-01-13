@@ -1,6 +1,8 @@
 basket4py
 =================
 
+![How it works](images/basket4py_trailer_big.gif)
+
 ## A python environment with anaconda and vagrant
 This project gives you an easy start with python:
 + Develop your python scripts within jupyter notebooks
@@ -16,8 +18,6 @@ This project gives you an easy start with python:
 
 
 ## Integrated platform to edit and run your programs
-
-![How it works](images/basket4py_trailer_big.gif)
 
 ![Get an idea of a jupyter notebook](images/01_The_Basics_annotated.png)
 
