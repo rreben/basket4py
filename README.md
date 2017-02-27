@@ -33,6 +33,20 @@ Follow these simple steps to install everything you need to start programming:
 * type in `vagrant up`. This command will prepare a "virtual computer" on your pc or mac. Everything will be installed within this "virtual computer" so there won't be any interferences with other programs on your mashine.
 * type in `vagrant provision` this command may take even longer (leave it for the night). It will install a modern python development environment.
 
+### Use baset4py as a basis for Mining-the-Social-Web
+Thx @zyx954 for this instruction:
+1. Go to https://github.com/rreben/basket4py
+2. Download this repo
+3. do a vagrant up (just like you did with the other two repos (original and fork)
+4. vagrant provision get the python stack installed.
+5. Now you should have a fully functional anaconda stack.
+6. open a browser (safari) type in `localhost:8888` You should see a jupyter notebook now
+7. type in `vagrant ssh` in your terminal. Now the command prompt will change. You are now logged in to your linux virtual guest machine.
+8. Use `sudo -i pip install twitter` twat the command line from within the guest machine to add the twitter framework
+9. Use `sudo -i pip install prettytable`
+10. Now you should be able to use the code examples from the book.
+11. You can either type them in or you can copy the notebooks: Do a copy of the `*.ipny` (ipython notebook files) from the directory ipnb in the mining-the-social-web folder to the notebooks folder in the basket4py repo
+
 ### Check the installation
 After the installation. Use [http://localhost:8888](http://localhost:8888) in your web browser, to start the environment. Click on the notebook and run the code blocks in the order in which they occur in the notebook.
 
