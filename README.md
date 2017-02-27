@@ -35,6 +35,7 @@ Follow these simple steps to install everything you need to start programming:
 
 ### Use basket4py as a basis for Mining-the-Social-Web
 Thx @zyx954 for this instruction:
+
 1. Go to https://github.com/rreben/basket4py
 2. Download this repo
 3. do a vagrant up (just like you did with the other two repos (original and fork)
