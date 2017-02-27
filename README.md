@@ -33,7 +33,7 @@ Follow these simple steps to install everything you need to start programming:
 * type in `vagrant up`. This command will prepare a "virtual computer" on your pc or mac. Everything will be installed within this "virtual computer" so there won't be any interferences with other programs on your mashine.
 * type in `vagrant provision` this command may take even longer (leave it for the night). It will install a modern python development environment.
 
-### Use baset4py as a basis for Mining-the-Social-Web
+### Use basket4py as a basis for Mining-the-Social-Web
 Thx @zyx954 for this instruction:
 1. Go to https://github.com/rreben/basket4py
 2. Download this repo
