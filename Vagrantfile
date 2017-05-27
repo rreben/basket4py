@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
     # You might have to play around with the following two lines if you have to install
     # the virtual mashine on a flash or usb-flash drive.
     # See https://github.com/rreben/Mining-the-Social-Web-2nd-Edition for details.
-    # config.ssh.private_key_path = "/Users/rupertrebentisch/certificates/learn-how-to-code_key"
+    # config.ssh.private_key_path = "/Users/rupertrebentisch/certificates/basket4py_key"
     # config.ssh.insert_key = false
 
 
@@ -46,6 +46,7 @@ Vagrant.configure("2") do |config|
 
   # Chef-Solo provisioning
   config.vm.provision :chef_solo do |chef|
+    chef.version = '12.19.36'
     chef.json = {
       :anaconda => {
         :accept_license => 'yes',
