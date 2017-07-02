@@ -1,0 +1,54 @@
+- hosts: all
+  become: true
+
+  vars:
+    - anaconda_make_sys_default: True
+
+  roles:
+    - andrewrothstein.anaconda
+
+  post_tasks:
+
+    - name: Create jupyter notebook configuration directory
+      file:
+        path: /home/vagrant/.jupyter
+        state: directory
+        owner: vagrant
+        group: vagrant
+
+    - name: Install jupyter configuration file
+      copy:
+        src: files/jupyter_notebook_config.py
+        dest: /home/vagrant/.jupyter
+        owner: vagrant
+        group: vagrant
+
+    - name: Create jupyter notebook directory
+      file:
+        path: /home/vagrant/notebooks
+        state: directory
+        owner: vagrant
+        group: vagrant
+
+    - name: Install jupyter notebook initd service
+      template:
+        src: files/jupyter-notebook
+        dest: /etc/init.d
+        mode: 0755
+
+
+    - name: Enable and start jupyter notebook service
+      service:
+        name: jupyter-notebook
+        enabled: yes
+        state: started
+
+    - name: Install python library through pip requirements
+      pip:
+        requirements: /home/vagrant/notebooks/requirements.txt
+        executable: /usr/local/anaconda/bin/pip
+
+    - name: install python library via conda
+      conda: name={{ item }} state=latest executable="/usr/local/anaconda/bin/conda"
+      with_items:
+       - snuggs

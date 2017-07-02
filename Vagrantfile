@@ -15,49 +15,37 @@ Vagrant.configure("2") do |config|
   # SSH forwarding: See https://help.github.com/articles/using-ssh-agent-forwarding
   config.ssh.forward_agent = true
 
+  config.vm.box = "ubuntu/trusty64"
+
+  # You might have to play around with the following two lines if you have to install
+  # the virtual mashine on a flash or usb-flash drive.
+  # See https://github.com/rreben/Mining-the-Social-Web-2nd-Edition for details.
+  # config.ssh.private_key_path = "/Users/rupertrebentisch/certificates/basket4py_key"
+  # config.ssh.insert_key = false
+
+  # jupyter Notebook
+  config.vm.synced_folder "notebooks/", "/home/vagrant/notebooks"
+  config.vm.network "private_network", ip: "192.168.33.12"
+
   #########################################################################
   # Virtualbox configuration - the default provider for running a local VM
   #########################################################################
 
   config.vm.provider :virtualbox do |vb, override|
-
-    # The Virtualbox image
-    #override.vm.box = "precise64"
-    override.vm.box = "ubuntu/trusty64"
-#    override.vm.box = "bento/ubuntu-16.04"
-
-    # You might have to play around with the following two lines if you have to install
-    # the virtual mashine on a flash or usb-flash drive.
-    # See https://github.com/rreben/Mining-the-Social-Web-2nd-Edition for details.
-    # config.ssh.private_key_path = "/Users/rupertrebentisch/certificates/basket4py_key"
-    # config.ssh.insert_key = false
-
-
-    # Port forwarding details
-    # Only port 8888 is essential to initially access jupyter Notebook and get started.
-
-    # jupyter Notebook
-    override.vm.network :forwarded_port, host: 8888, guest: 8888
-
     # You can increase the default amount of memory used by your VM by
     # adjusting this value below (in MB) and reprovisioning.
     vb.customize ["modifyvm", :id, "--memory", "1024"]
   end
 
-  # Chef-Solo provisioning
-  config.vm.provision :chef_solo do |chef|
-    chef.version = '12.19.36'
-    chef.json = {
-      :anaconda => {
-        :accept_license => 'yes',
-      }
-    }
-    chef.run_list = [
-      'recipe[anaconda::default]',
-      'recipe[anaconda::shell_conveniences]',
-      'recipe[anaconda::notebook_server]',
-    ]
-
-    # chef.custom_config_path = 'vagrant-solo.rb'
+  # Ansible provisioning - 
+  # this will run ansible on the VM so its not necessary to install on the host
+  config.vm.provision "ansible_local" do |ansible|
+    ansible.playbook = "provision/playbook.yml"
+    ansible.install_mode = "default"
+    #ansible.version = "latest"
+    ansible.verbose = "true"
+    ansible.galaxy_role_file = "provision/requirements.yml"
+    ansible.raw_arguments = ["--module-path", "/vagrant/provision/library/ansible-conda"]
   end
+
 end
