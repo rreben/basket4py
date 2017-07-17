@@ -1,0 +1,4 @@
+# -*- coding: utf-8 -*-
+
+prettytable==0.7.2
+twitter==1.17.1
