@@ -1,6 +1,9 @@
 basket4py
 =================
 
+## basket4py is an infrastrurcture project
+Simply add basket4py to any python (especially data science) project. And you will be able to run jupyter notebooks from a virtual vagrant enabled development environment. Of couse you can use basket4py to get an easy start on starting with python and jupyter notebooks.
+
 ![How it works](images/basket4py_trailer_big.gif)
 
 ## A python environment with anaconda and vagrant
@@ -41,7 +44,7 @@ Thx @zyx954 for this instruction:
 3. do a vagrant up (just like you did with the other two repos (original and fork)
 4. vagrant provision get the python stack installed.
 5. Now you should have a fully functional anaconda stack.
-6. open a browser (safari) type in `localhost:8888` You should see a jupyter notebook now
+6. open a browser (safari) type in `192.168.33.12:8888` You should see a jupyter notebook now
 7. type in `vagrant ssh` in your terminal. Now the command prompt will change. You are now logged in to your linux virtual guest machine.
 8. Use `sudo -i pip install twitter` twat the command line from within the guest machine to add the twitter framework
 9. Use `sudo -i pip install prettytable`
@@ -67,7 +70,10 @@ After the installation. Use [http://localhost:8888](http://localhost:8888) in yo
 ## Acknowledgement
 This work is inspired by Matthew A. Russel's work on [Mining the social Web](https://miningthesocialweb.com), where I found out about iPython (now jupyter) and how to use Vagrant and chef to prepare an easy to deploy development environment.
 
-I used the following chef recipes to cook up the development environment:
+* Right now I switched to ansible, thanks to @fhenri for doint the work of porting the project to ansible.
+* The project is based on the [anaconda installer](https://github.com/andrewrothstein/ansible-anaconda) from @andrewrothstein
+
+I used the following chef recipes to cook up the development environment in former versions of this repo:
 * [anaconda](https://github.com/thmttch/chef-continuum-anaconda)
 * [apt](https://github.com/chef-cookbooks/apt)
 * bzip2 chef cookbook from John Bellone
