@@ -1,7 +1,7 @@
 basket4py
 =================
 
-## basket4py is an infrastrurcture project
+## basket4py is an infrastructure project
 Simply add basket4py to any python (especially data science) project. And you will be able to run jupyter notebooks from a virtual vagrant enabled development environment. Of couse you can use basket4py to get an easy start on starting with python and jupyter notebooks.
 
 ![How it works](images/basket4py_trailer_big.gif)
@@ -52,7 +52,7 @@ Thx @zyx954 for this instruction:
 11. You can either type them in or you can copy the notebooks: Do a copy of the `*.ipny` (ipython notebook files) from the directory ipnb in the mining-the-social-web folder to the notebooks folder in the basket4py repo
 
 ### Check the installation
-After the installation. Use [http://localhost:8888](http://localhost:8888) in your web browser, to start the environment. Click on the notebook and run the code blocks in the order in which they occur in the notebook.
+After the installation. Use [http://192.168.33.12:8888](http://192.168.33.12:8888) in your web browser, to start the environment. Click on the notebook and run the code blocks in the order in which they occur in the notebook.
 
 ## Stoping and resuming
 * Use `vagrant status` to check whether the vagrant machine is up and running.
@@ -61,7 +61,7 @@ After the installation. Use [http://localhost:8888](http://localhost:8888) in yo
 
 ## Behind the scenes
 * Vagrant is used to install python 3, jupyter and some other tool from the Anaconda eco system to a virtual mashine.
-* Vagrant is instructed to use chef as the provisioner.
+* Vagrant is instructed to use ansible installer.
 * The virtual machine is provided via Oracles virtual box.
 * A web server is running on the virtual (guest) computer. This server serves the jupyter notebooks.
 * These notebooks can be accessed via port forwading from the host computer.
@@ -84,8 +84,7 @@ I used the following chef recipes to cook up the development environment in form
 
 
 ## Status
-* The vagrantfile is done, so setting up the development environment is working. Some tweeks to the chef recipes have been necessary to point the jupyter working directory to the right directory that is linked from the guest machine directly to the host machine.
-* basket4py has been tested with vagrant 1.9.x
+* The vagrantfile is done, so setting up the development environment is working.
 * The anaconda stack is working
 
 
@@ -95,7 +94,7 @@ You might see a warning while vagrant up, telling you that guest additions do no
 
 ![important warning](images/warningGuestAdditions.png)
 
-The effect might be that the directories with the jupyter notebooks are not mounted correctly. In this case you will see that jupyter is running (localhost:8888 will show a webpage), however you will not see any meaningful tutorials.
+The effect might be that the directories with the jupyter notebooks are not mounted correctly. In this case you will see that jupyter is running (192.168.33.12:8888 will show a webpage), however you will not see any meaningful tutorials.
 
 If this happens, you have to update your virtualbox installation to the newest version. Use `vagrant destroy` to restart from scratch, use `vagrant up` to install again (do this in a strong wifi network). This should fix everything.
 
