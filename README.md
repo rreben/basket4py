@@ -4,7 +4,6 @@ basket4py
 ## basket4py is an infrastructure project
 Simply add basket4py to any python (especially data science) project. And you will be able to run jupyter notebooks from a virtual vagrant enabled development environment. Of couse you can use basket4py to get an easy start on starting with python and jupyter notebooks.
 
-[test it](test.html)
 
 ![How it works](images/basket4py_trailer_big.gif)
 
